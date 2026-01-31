@@ -116,10 +116,12 @@ const navItems = [
   { id: 'backtest', icon: CheckSquare, label: 'Test' }, 
   { id: 'vault', icon: FileText, label: 'Data' }, 
   { id: 'about', icon: User, label: 'About' } 
-];const FloatingDock = ({ activeTab, setActiveTab }) => {
+];
+
+const FloatingDock = ({ activeTab, setActiveTab }) => {
   return (
     <>
-      {/* DESKTOP: CARTOON TOOL PALETTE (Unchanged) */}
+      {/* DESKTOP: CARTOON TOOL PALETTE */}
       <nav className="hidden md:flex fixed z-50 left-6 top-1/2 -translate-y-1/2 flex-col gap-5 p-4 bg-paper border-[3px] border-graphite rounded-full shadow-[8px_8px_0px_0px_rgba(38,38,38,1)]">
         {navItems.map((item) => {
            const isActive = activeTab === item.id;
@@ -141,7 +143,7 @@ const navItems = [
         })}
       </nav>
 
-      {/* MOBILE: HIGH VOLTAGE ANIMATION (Monochrome Update) */}
+      {/* MOBILE: HIGH VOLTAGE ANIMATION (Monochrome) */}
       <nav className="md:hidden fixed z-50 bottom-5 left-0 right-0 flex justify-center pointer-events-none">
         <div className="bg-paper border-[3px] border-graphite rounded-full shadow-soft-hover flex items-center px-1 h-[56px] pointer-events-auto mx-4 w-full max-w-[340px]">
           <div className="grid grid-cols-6 w-full h-full items-center justify-items-center">
@@ -156,7 +158,7 @@ const navItems = [
                   <div className={`
                     transition-all duration-300 cubic-bezier(0.175, 0.885, 0.32, 1.275) flex items-center justify-center rounded-full border-[3px] border-graphite
                     ${isActive 
-                      ? 'w-12 h-12 -translate-y-9 bg-graphite text-white shadow-[4px_4px_0px_0px_#000000] rotate-12 scale-110' // CHANGED: Yellow removed, now Graphite/White
+                      ? 'w-12 h-12 -translate-y-9 bg-graphite text-white shadow-[4px_4px_0px_0px_#000000] rotate-12 scale-110' 
                       : 'w-8 h-8 -translate-y-0 bg-transparent border-transparent text-graphite/40 group-active:scale-90 shadow-none'}
                   `}>
                     <item.icon size={isActive ? 22 : 20} strokeWidth={isActive ? 3 : 2.5} />
@@ -176,6 +178,7 @@ const navItems = [
     </>
   );
 };
+
 function App() {
   const [ticker, setTicker] = useState('');
   const [loading, setLoading] = useState(false);
@@ -213,9 +216,7 @@ function App() {
       const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
       
       // STEP 1: Get Raw Data from Vercel Relay (Bypassing IP Block)
-      // This runs on Vercel's servers, which are not blocked by Yahoo.
       const rawRes = await fetch(`/api/fetch-data?ticker=${searchTicker}`);
-      
       if (!rawRes.ok) throw new Error('Vercel Fetch Failed');
       const rawData = await rawRes.json();
 
