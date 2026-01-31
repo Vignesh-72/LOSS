@@ -215,7 +215,7 @@ function App() {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
       
-      // === UPDATED: Pointing to the NEW file (stock-data) to clear cache ===
+      //   asdsa=== UPDATED: Pointing to the NEW file (stock-data) to clear cache ===
       const rawRes = await fetch(`/api/stock-data?ticker=${searchTicker}`);
       
       if (!rawRes.ok) throw new Error('Vercel Fetch Failed');
